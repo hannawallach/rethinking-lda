@@ -1,0 +1,35 @@
+<project name="template" default="build" basedir=".">
+  <description>Template Project</description>
+
+  <property name="build_dir" location="build"/>
+  <property name="libs_dir" location="libs"/>
+  <property name="src_dir" location="src"/>
+
+  <path id="classpath">
+    <pathelement path="${build_dir}"/>
+    <fileset dir="${libs_dir}" includes="mallet.jar"/>
+    <fileset dir="${libs_dir}" includes="mallet-deps.jar"/>
+  </path>
+
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="${build_dir}"/>
+  </target>
+
+  <target name="build" depends="init">
+    <javac destdir="${build_dir}" classpathref="classpath">
+      <src path="${src_dir}"/>
+      <include name="**/*.java"/>
+      <compilerarg value="-nowarn"/>
+      <compilerarg value="-Xlint:none"/>
+    </javac>
+  </target>
+
+  <target name="clean">
+    <delete>
+      <fileset dir="." includes="**/*~" defaultexcludes="false"/>
+    </delete>
+    <delete dir="${build_dir}"/>
+  </target>
+
+</project>
